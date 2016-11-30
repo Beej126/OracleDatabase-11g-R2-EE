@@ -18,3 +18,4 @@ echo '.oracle.com	TRUE	/	FALSE	0	oraclelicense	accept-dbindex-cookie' >> $v_cook
 curl -A "Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.6.0" \
 -b $v_cookie \
 -OL $v_download_oracledb11g
+mv linux.x64_11gR2_database_1of2.zip /install/disk1.zip
