@@ -15,7 +15,6 @@ ENV TZ=Etc/GMT-3
 RUN yum -y install oracle-rdbms-server-11gR2-preinstall.x86_64 java-devel unzip && \
     yum clean all && \ 
     rm -rf /var/lib/{cache,log} /var/log/lastlog && \
-    # curl -o /usr/local/bin/gosu -SL 'https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64' && \
     mv /install/gosu-amd64 /usr/local/bin/gosu && \
     chmod +x /usr/local/bin/gosu && \
     echo "oracle:oracle" | chpasswd && \ 
@@ -30,8 +29,6 @@ RUN yum -y install oracle-rdbms-server-11gR2-preinstall.x86_64 java-devel unzip 
     chown -R oracle:oinstall /oracle.init.d && \
     mkdir -p /u01/app/oracle-product && chown oracle:oinstall /u01/app/oracle-product && \
     ln -s /u01/app/oracle-product $ORACLE_BASE/product && \   
-    # curl -o /install/disk1.zip -SL 'http://10.211.55.9:8080/linux.x64_11gR2_database_1of2.zip' && \
-    # curl -o /install/disk2.zip -SL 'http://10.211.55.9:8080/linux.x64_11gR2_database_2of2.zip' && \
     chmod +x /install/*.sh && \
     /install/download_Oracle_DB_11gR2_EE_1of2.sh && \
     /install/download_Oracle_DB_11gR2_EE_2of2.sh && \
