@@ -22,3 +22,4 @@ if [[ $? -eq 0 ]]; then
 	sed -i -e 's/\$(INSO_LINK)/\$(INSO_LINK) -Wl,--wrap=memcpy_wrap \$(ORACLE_HOME)\/ctx\/lib\/memcpy_wrap.o/g' ctx/lib/ins_ctx.mk
 	gcc -c /tmp/memcpy_wrap.c -o ctx/lib/memcpy_wrap.o && rm -f /tmp/memcpy_wrap.c
 jar -uvf ${jar_file} ctx/lib/ins_ctx.mk ctx/lib/memcpy_wrap.o
+fi
