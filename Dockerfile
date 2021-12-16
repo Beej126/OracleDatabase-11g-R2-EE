@@ -1,4 +1,4 @@
-FROM oraclelinux
+FROM oraclelinux:7
 MAINTAINER peng.alan@gmail.com
 
 ADD install /install
