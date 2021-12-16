@@ -3,8 +3,11 @@ set -e
 
 sysctl -p > /dev/null 2>&1 || true
 
-chown -R oracle:oinstall $ORACLE_BASE 
-chown -R oracle:oinstall /u01/app/oracle-product
+chown -R oracle:oinstall $ORACLE_BASE
+
+#didn't appear to be necessary and took a very long time to process deeply nested folders
+#chown -R oracle:oinstall /u01/app/oracle-product
+
 rm -fr $ORACLE_BASE/product
 ln -s /u01/app/oracle-product $ORACLE_BASE/product
 
