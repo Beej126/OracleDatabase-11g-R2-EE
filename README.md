@@ -36,3 +36,6 @@ example statements for above:
 - https://stackoverflow.com/questions/6288122/checking-oracle-sid-and-database-name
 - https://docs.docker.com/engine/reference/commandline/build/
 - https://dev.to/kimcuonthenet/move-docker-desktop-data-distro-out-of-system-drive-4cg2
+- https://mybrainimage.wordpress.com/2017/02/05/docker-change-port-mapping-for-an-existing-container/
+  - under wsl2 docker engine, containers & their config.v2.json files (where you can tweak port#'s) are at this path: `\\wsl.localhost\docker-desktop-data\version-pack-data\community\docker\containers\`
+  - make sure you stop your container, make the file edit and then do a **Restart Docker** from the docker desktop task tray icon before restarting the container to make sure changes take hold
