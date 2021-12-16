@@ -45,6 +45,6 @@ EXPOSE 1521
 EXPOSE 8080
 EXPOSE 5500
 
-VOLUME ["/u01/app/oracle"]
+#VOLUME ["/u01/app/oracle"]
 
 ENTRYPOINT ["/entrypoint.sh"]
