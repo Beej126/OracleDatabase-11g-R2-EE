@@ -9,7 +9,7 @@ rm -fr $ORACLE_BASE/product
 ln -s /u01/app/oracle-product $ORACLE_BASE/product
 
 /u01/app/oraInventory/orainstRoot.sh > /dev/null 2>&1
-echo | $ORACLE_BASR/product/11.2.0/db_1/root.sh> /dev/null 2>&1 || true
+echo | $ORACLE_BASE/product/11.2.0/db_1/root.sh> /dev/null 2>&1 || true
 
 #setting correct timezone, as UTC is not supported by Oracle EM
 echo y | cp -f /usr/share/zoneinfo/${TZ}  /etc/localtime
