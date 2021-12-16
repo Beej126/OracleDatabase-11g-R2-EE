@@ -29,11 +29,16 @@ RUN yum -y install oracle-rdbms-server-11gR2-preinstall.x86_64 java-devel unzip 
     chown -R oracle:oinstall /oracle.init.d && \
     mkdir -p /u01/app/oracle-product && chown oracle:oinstall /u01/app/oracle-product && \
     ln -s /u01/app/oracle-product $ORACLE_BASE/product && \   
+    echo "manual intervention required!!" && \
+    echo "the download urls for the oracle 11g install zip files listed within 'download_Oracle_DB_11gR2_EE_1of2.sh' (and '...2of2.sh') are amazingly still valid... BUT you must acquire them manually for this to be above board..." && \
+    echo "the trick to downloading them is FIRST logging into oracle.com and establishing a cookie by downloading something else, anything works, e.g. sql developer, and THEN you can manually launch the 11g.zip urls to download" && \
+    echo "then you will need to http/s host them somewhere within your own infrastructure and fork this repo to modify this script with your new urls plugged into the curl commands below (and remove the exit 1 line =)" && \
+    exit 1 && \
+    curl -o /install/disk1.zip -SL 'https://your_url_here/linux.x64_11gR2_database_1of2.zip' && \
+    curl -o /install/disk2.zip -SL 'https://your_url_here/linux.x64_11gR2_database_2of2.zip' && \
     chmod +x /install/*.sh && \
-    /install/download_Oracle_DB_11gR2_EE_1of2.sh && \
-    /install/download_Oracle_DB_11gR2_EE_2of2.sh && \
     cd /install && unzip -qq '*.zip' && rm -f /install/*.zip && source /install/ins_ctx.sh && source /install/ins_emagent.sh && \
-    gosu oracle  /install/install_sw.sh /install/sw_install.rsp && \ 
+    gosu oracle /install/install_sw.sh /install/sw_install.rsp && \ 
     rm -fr $ORACLE_SRC_INSTALL_DIR && rm -fr /tmp/* 
 
 ENV INIT_MEM_PST 40
