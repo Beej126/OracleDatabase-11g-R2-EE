@@ -25,3 +25,14 @@ example statements for above:
 - `docker commit docker commit oracle11g-1 oracle11g-save'
 - oracle sql for creating impdp directory: `CREATE OR REPLACE DIRECTORY import AS '/opt/oracle/dpdump/';`
   - corresponding backup import statement: `impdp \'sys/oracle@$ORACLE_SID as sysdba\' SCHEMAS=BLAH DIRECTORY=IMPORT DUMPFILE=blah_110620_1945_full.dmp METRICS=Y EXCLUDE=USER,TABLE_STATISTICS,VIEW,PROCEDURE,PACKAGE,PACKAGE_BODY,TRIGGER,ROLE_GRANT,GRANT REMAP_TABLESPACE=spl_dyn:users REMAP_TABLESPACE=spl_stat:users REMAP_TABLESPACE=spl_index:users REMAP_TABLESPACE=workarea:users REMAP_TABLESPACE=EDS_RESULTS:users REMAP_TABLESPACE=history:users REMAP_TABLESPACE=DOC_STORAGE:users`
+
+# helpful references
+- https://programmer.group/install-oracle-11g-using-docker.html
+- https://github.com/jaspeen/oracle-11g
+- https://github.com/Fangrn/OracleDatabase-11g-R2-EE/blob/master/entrypoint.sh
+- https://www-its203-com.translate.goog/article/u011078141/118525418?_x_tr_sl=zh-CN&_x_tr_tl=en&_x_tr_hl=en&_x_tr_pto=sc
+- https://github.com/oracle/docker-images/issues/396
+- https://hub.docker.com/layers/alanpeng/oracledatabase-11g-r2-ee/latest/images/sha256-72c3a7c5f2e6abfa2b0a07e7cba167d50c4a844b8511200a05f2a47fdbe9e029?context=explore
+- https://stackoverflow.com/questions/6288122/checking-oracle-sid-and-database-name
+- https://docs.docker.com/engine/reference/commandline/build/
+- https://dev.to/kimcuonthenet/move-docker-desktop-data-distro-out-of-system-drive-4cg2
