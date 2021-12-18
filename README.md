@@ -22,7 +22,7 @@ OracleDatabase-11g-R2-EE Docker Image
 example statements for above:
 - `docker build https://your_github_repo_here`
 - `docker run -it -p 1521:1521 -p 5500:5500 -p 8080:8080 --privileged -e ORACLE_ALLOW_REMOTE=true -e DISPLAY=your_local_ip_here:0 --name=oracle11g-1 --entrypoint=/bin/bash -v your_local_folder_here:/opt/oracle/dpdump your_github_id/oracledatabase-11g-r2-ee`
-- `docker commit docker commit oracle11g-1 oracle11g-save`
+- `docker commit oracle11g-1 oracle11g-save`
 - oracle sql for creating impdp directory: `CREATE OR REPLACE DIRECTORY import AS '/opt/oracle/dpdump/';`
   - corresponding backup import statement: `impdp \'sys/oracle@$ORACLE_SID as sysdba\' SCHEMAS=BLAH DIRECTORY=IMPORT DUMPFILE=blah_110620_1945_full.dmp METRICS=Y EXCLUDE=USER,TABLE_STATISTICS,VIEW,PROCEDURE,PACKAGE,PACKAGE_BODY,TRIGGER,ROLE_GRANT,GRANT REMAP_TABLESPACE=spl_dyn:users REMAP_TABLESPACE=spl_stat:users REMAP_TABLESPACE=spl_index:users REMAP_TABLESPACE=workarea:users REMAP_TABLESPACE=EDS_RESULTS:users REMAP_TABLESPACE=history:users REMAP_TABLESPACE=DOC_STORAGE:users`
 
