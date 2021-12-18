@@ -16,7 +16,7 @@ OracleDatabase-11g-R2-EE Docker Image
 - once that's complete you should save that finalized running instance as a new clean image via `docker commit` before you load any data into it so you can "docker run" fresh new copies of an *empty* working oracle 11g ... i.e. whenver you want a blank fresh start
 - once you have this working container, you can just "run" it from the docker desktop UI whenever you reboot...
   - and once it's running just start the database via "./start.sh" at it's command line, i.e. **don't run "./entrypoint.sh" anymore after the first time**
-- my example docker run command includes mounting a host folder where i've got my oracle backup "dump" files so i can `impdp` restore 
+- my example docker run command below includes mounting a host folder where i've got my oracle backup "dump" files so i can `impdp` restore 
 - fyi, the login/password for this oracle instance is "sys/oracle"
 
 example statements for above:
