@@ -1,6 +1,7 @@
 # OracleDatabase-11g-R2-EE
-OracleDatabase-11g-R2-EE Docker Image
+OracleDatabase-11g-R2-EE Docker Image (actually this repo is an image build source vs the image itself)
 
+- This image is NOT provided in Docker Hub directly... it must be built from this repo, which turns out to be amazingly straightforward anyway (see first command under "example statements" below)
 - When you create the FIRST container off this image, you'll run the /entrypoint.sh script that installs oracle 11g along with an initial database.
 - Once that's completed it's most likely you'll want to save that running container state as a new image such that you don't have to do the install again.
 - you could probably toss the original image & container at that point.
