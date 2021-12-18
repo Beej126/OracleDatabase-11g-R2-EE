@@ -1,21 +1,30 @@
 # OracleDatabase-11g-R2-EE
 OracleDatabase-11g-R2-EE Docker Image
 
+- When you create the FIRST container off this image, you'll run the /entrypoint.sh script that installs oracle 11g along with an initial database.
+- Once that's completed it's most likely you'll want to save that running container state as a new image such that you don't have to do the install again.
+- you could probably toss the original image & container at that point.
+- then create your main working container to use going forward from that second image...
+- and just create new containers from that second image anytime you want to start over with a fresh blank database
+- the main reasons a fully working image isn't provided directly are size and licensing because the initial image build requires downloading 2GB of oracle installs
+- my final image is resting at 12GB
+
 # This works again circa 2021 Q4 but requires a manual step
 - i figured i'd post my effort in case it helps somebody as desperate as i was to get a legacy version of oracle running for a local dev scenario
 - the manual piece is that you must go download the oracle 11g install zips yourself since those can't be automatically pulled from oracle.com via curl (as far as i know, since oracle now has an interactive javascript login cookie flow in front of all downloads)
   - see the notes for [what's required in the Dockerfile bash script](https://github.com/Beej126/OracleDatabase-11g-R2-EE/blob/ee9c5954973c0abebf5956aaf93088b3eef380af/Dockerfile#L32)
 
 # basic "install" steps
+- just fyi, i executed this on windows 11, wsl2 based docker desktop, which is a true linux host vm so this should all work on any linux based docker installation
 - i wasn't super docker savvy yet so thought this might be helpful but it's pretty boilerplate stuff if you're already a docker head
 - `docker build` command can pull directly from a github repo... docker build creates a docker "image" based on the Dockerfile instructions
 - again, you'll have to fork this repo and edit the Dockerfile as described above before the build can succeed
 - once you have that image built, you then `docker run` it with some necessary command line args demonstrated below, to fire up the running instance or oracle linux that hosts the oracle database engine... this running instance is what is really called a "container" in Docker parlance
 - the docker run cli will leave you sitting at that instance's shell command line...
-- at this point you just need to execute "./entrypoint.sh" which will run through the oracle install and create an initial running database!
+- at this point you just need to execute "/entrypoint.sh" which will run through the oracle install and create an initial running database!
 - once that's complete you should save that finalized running instance as a new clean image via `docker commit` before you load any data into it so you can "docker run" fresh new copies of an *empty* working oracle 11g ... i.e. whenver you want a blank fresh start
 - once you have this working container, you can just "run" it from the docker desktop UI whenever you reboot...
-  - and once it's running just start the database via "./start.sh" at it's command line, i.e. **don't run "./entrypoint.sh" anymore after the first time**
+  - and once it's running just start the database via "/start.sh" at it's command line, i.e. **don't run "/entrypoint.sh" anymore after the first time**
 - my example docker run command below includes mounting a host folder where i've got my oracle backup "dump" files so i can `impdp` restore 
 - fyi, the login/password for this oracle instance is "sys/oracle"
 
