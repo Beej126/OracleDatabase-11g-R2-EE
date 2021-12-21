@@ -3,12 +3,12 @@ OracleDatabase-11g-R2-EE Docker Image (actually this repo is an image build sour
 
 - This image is NOT provided in Docker Hub directly... it must be built from this repo, which turns out to be amazingly straightforward anyway (see first command under "example statements" below)
 - When you create the FIRST container off this image, you'll run the /entrypoint.sh script that installs oracle 11g along with an initial database.
-- Once that's completed it's most likely you'll want to save that running container state as a new image such that you don't have to do the install again.
+- Once that's completed you'll most likely want to save that running container state as a new image such that you don't have to do the install again.
 - you could probably toss the original image & container at that point.
 - then create your main working container to use going forward from that second image...
 - and just create new containers from that second image anytime you want to start over with a fresh blank database
 - the main reasons a fully working image isn't provided directly are size and licensing because the initial image build requires downloading 2GB of oracle installs
-- my final image is resting at 12GB
+- fyi, my final default database image is resting at 12GB
 
 # This works again circa 2021 Q4 but requires a manual step
 - i figured i'd post my effort in case it helps somebody as desperate as i was to get a legacy version of oracle running for a local dev scenario
