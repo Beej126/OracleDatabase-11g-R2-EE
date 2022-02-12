@@ -37,6 +37,13 @@ example statements for above:
   - corresponding backup import statement: `impdp \'sys/oracle@$ORACLE_SID as sysdba\' SCHEMAS=BLAH DIRECTORY=IMPORT DUMPFILE=blah_110620_1945_full.dmp METRICS=Y EXCLUDE=USER,TABLE_STATISTICS,VIEW,PROCEDURE,PACKAGE,PACKAGE_BODY,TRIGGER,ROLE_GRANT,GRANT REMAP_TABLESPACE=spl_dyn:users REMAP_TABLESPACE=spl_stat:users REMAP_TABLESPACE=spl_index:users REMAP_TABLESPACE=workarea:users REMAP_TABLESPACE=EDS_RESULTS:users REMAP_TABLESPACE=history:users REMAP_TABLESPACE=DOC_STORAGE:users`
 - login to sql plus as sys: `gosu oracle sqlplus sys/oracle as sysdba`
   - [gosu](https://stackoverflow.com/questions/36781372/docker-using-gosu-vs-user/37931896#37931896) is apparently a docker compatible "su", i'm probably using it wrong
+- enable sys.utl_mail: https://asktom.oracle.com/pls/apex/asktom.search?tag=sending-mail-using-utl-mail
+  ```
+  gosu oracle sqlplus sys/oracle as sysdba
+  SQL> @$ORACLE_HOME/rdbms/admin/utlmail.sql
+  SQL> @$ORACLE_HOME/rdbms/admin/prvtmail.plb
+  SQL> grant execute on utl_mail to xxxx;
+  ```
 
 # helpful references
 - https://programmer.group/install-oracle-11g-using-docker.html
