@@ -44,6 +44,27 @@ example statements for above:
   SQL> @$ORACLE_HOME/rdbms/admin/prvtmail.plb
   SQL> grant execute on utl_mail to xxxx;
   ```
+  
+# migrating populated database to another host
+- there are at least a couple different ways to "export"... `docker save` and `docker export`... save works on images, export works on containers and in my experience had the beneficial side effect of a MUCH SMALLER export file and resulting image upon load, [apparently it drops the "metadata and history of the image" and "flattens" the layers](https://www.tutorialspoint.com/how-to-flatten-a-docker-image). simple CLI example: `docker export oracle11g -o oracle11g.tar` this tar would then be imported via `docker import e:\oracle11g.tar oracle11g`, this will create a new instance which would then be `run` to have a working container. here is the full blow run command i use:
+  ```
+  docker run --name=oracle11g --hostname=f7d85c6a6dda --mac-address=02:42:ac:11:00:02 --env=ORACLE_ALLOW_REMOTE=true --env=DISPLAY=your_local_ip_here:0 --env=PATH=/u01/app/oracle/product/11.2.0/db_1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=ORACLE_BASE=/u01/app/oracle --env=ORACLE_HOME=/u01/app/oracle/product/11.2.0/db_1 --env=ORACLE_HOME_LISTNER=/u01/app/oracle/product/11.2.0/db_1 --env=ORACLE_SID=orcl --env=ORACLE_SRC_INSTALL_DIR=/install/database --env=TZ=Etc/GMT-3 --env=INIT_MEM_PST=40 --env=SW_ONLY=false --volume=C:\save\repos\KingCounty\PROD_ORACLE_BACKUPS:/opt/oracle/dpdump/oracledatabase-11g-r2-ee --privileged -p 1521:1521 -p 5500:5500 -p 8080:8080 --restart=no --runtime=runc -t -d oracle11g /start.sh
+  ```
+  1. pay attention to the hostname - it would drift as i created different instances and containers but the listener.ora file deep in the $ORACLE_HOME path (/u01/app/oracle/product/11.2.0/db_1/network/admin) is configured to this f7d85c6a6dda hostname so they must be kept in sync. i prefer setting the hostname vs editing the file.
+  2. the very last arg is the startup script: `/start.sh`. once that's been set into a container, it will persist for subsequent runs. i've edited it to use a simple trick of shelling out to bash at the end to leave the process open so docker doesn't end and shutdown the container.
+  3. the volume arg is how we can map a path internal to the container filesystem to a host filesystem path... this is then how we can facilitate connecting new database backups to be restored into the oracle instance
+
+# clearing out space of old images and containers
+- first do the obvious deletes in docker desktop... then stop and restart docker desktop and hopefully that it reliable in the latest version, otherwise...
+- good reference: https://stackoverflow.com/questions/36799718/why-removing-docker-containers-and-images-does-not-free-up-storage-space-on-wind
+- these are the usual commands but all of them reported 0B freed for me
+  ```
+  docker container prune -f
+  docker image prune -f
+  docker volume prune -f
+  docker system prune --volumes
+  ```
+  MAKE SURE TO RESTART Docker Desktop, that's when the space is finally released.
 
 # helpful references
 - https://programmer.group/install-oracle-11g-using-docker.html
